@@ -16,7 +16,7 @@ def split_dataset(source_dir, target_dir, split_ratio=(0.7, 0.15, 0.15)):
 
     # Iterate over classes (A-Z)
     classes = [d.name for d in source_path.iterdir() if d.is_dir()]
-    
+
     print(f"Found classes: {classes}")
 
     for class_name in classes:
@@ -28,12 +28,13 @@ def split_dataset(source_dir, target_dir, split_ratio=(0.7, 0.15, 0.15)):
         train_count = int(total_files * train_ratio)
         test_count = int(total_files * test_ratio)
         # val_count takes the remainder to ensure no files are left behind due to rounding
-        
+
         train_files = files[:train_count]
         test_files = files[train_count:train_count + test_count]
         val_files = files[train_count + test_count:]
 
-        print(f"Class {class_name}: Total {total_files} -> Train {len(train_files)}, Test {len(test_files)}, Val {len(val_files)}")
+        print(
+            f"Class {class_name}: Total {total_files} -> Train {len(train_files)}, Test {len(test_files)}, Val {len(val_files)}")
 
         # Copy files
         splits = {
@@ -48,12 +49,13 @@ def split_dataset(source_dir, target_dir, split_ratio=(0.7, 0.15, 0.15)):
             for file in split_files:
                 shutil.copy2(file, split_dir / file.name)
 
+
 if __name__ == "__main__":
-    # Adjust paths as needed. 
+    # Adjust paths as needed.
     # Assuming script is run from C:\Users\arnav\Coding\ASL
     source = "signalphaset"
     target = "data"
-    
+
     if not os.path.exists(source):
         print(f"Error: Source directory '{source}' not found.")
     else:
